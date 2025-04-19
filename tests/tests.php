@@ -67,7 +67,7 @@ function testDbDelete()
     return assertExpression($db->Read("page", $id) === null, 'Delete: ok', 'Delete: fai;');
 }
 
-// test 6: test fetch method
+// test 7: test fetch method
 function testDbFetch()
 {
     global $config;
@@ -81,7 +81,7 @@ function testDbFetch()
 
 /// PAGE TESTS
 
-// test 7: test render method
+// test 8: test render method
 function testPageRender()
 {
     $tplPath = '/var/www/html/templates/index.tpl';

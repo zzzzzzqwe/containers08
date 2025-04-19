@@ -323,7 +323,7 @@ require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/../modules/database.php';
 require_once __DIR__ . '/../modules/page.php';
 
-$testFramework = new TestFramework();
+$tests = new TestFramework();
 
 /// DATABASE TESTS
 
@@ -384,7 +384,7 @@ function testDbDelete()
     return assertExpression($db->Read("page", $id) === null, 'Delete: ok', 'Delete: fai;');
 }
 
-// test 6: test fetch method
+// test 7: test fetch method
 function testDbFetch()
 {
     global $config;
@@ -398,10 +398,10 @@ function testDbFetch()
 
 /// PAGE TESTS
 
-// test 7: test render method
+// test 8: test render method
 function testPageRender()
 {
-    $tplPath = __DIR__ . '../site/templates/index.tpl';
+    $tplPath = '/var/www/html/templates/index.tpl';
     file_put_contents($tplPath, "<h1>{{title}}</h1><p>{{content}}</p>");
 
     $page = new Page($tplPath);
@@ -438,7 +438,7 @@ echo $tests->getResult();
 ## Создание Dockerfile
 1. Создаю в корневом каталоге `Dockerfile` со следующим содержимым:
 ```dockerfile
-FROM php:7.4-fpm as base
+FROM php:8.2-fpm as base
 
 RUN apt-get update && \
     apt-get install -y sqlite3 libsqlite3-dev && \
