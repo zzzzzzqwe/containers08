@@ -15,7 +15,7 @@ class Database
     }
 
     /**
-     * Выполняет SQL-запрос (без получения результата).
+     * Выполняет SQL-запрос.
      * @param string $sql SQL-запрос.
      */
     public function Execute(string $sql): void
