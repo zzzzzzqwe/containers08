@@ -1,2 +1,2 @@
-# containers08
-jkljkljkl
+# Лабораторная работа №8. Непрерывная интеграция с помощью Github Actions
+
