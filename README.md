@@ -259,3 +259,104 @@ INSERT INTO page (title, content) VALUES ('Page 1', 'Content 1');
 INSERT INTO page (title, content) VALUES ('Page 2', 'Content 2');
 INSERT INTO page (title, content) VALUES ('Page 3', 'Content 3');
 ```
+
+## Создание тестов
+1. Создаю в корневом каталоге директорию `/tests`
+
+2. Создаю файл `testframework.php` со следующим содержимым:
+```php
+<?php
+
+function message($type, $message) {
+    $time = date('Y-m-d H:i:s');
+    echo "{$time} [{$type}] {$message}" . PHP_EOL;
+}
+
+function info($message) {
+    message('INFO', $message);
+}
+
+function error($message) {
+    message('ERROR', $message);
+}
+
+function assertExpression($expression, $pass = 'Pass', $fail = 'Fail'): bool {
+    if ($expression) {
+        info($pass);
+        return true;
+    }
+    error($fail);
+    return false;
+}
+
+class TestFramework {
+    private $tests = [];
+    private $success = 0;
+
+    public function add($name, $test) {
+        $this->tests[$name] = $test;
+    }
+
+    public function run() {
+        foreach ($this->tests as $name => $test) {
+            info("Running test {$name}");
+            if ($test()) {
+                $this->success++;
+            }
+            info("End test {$name}");
+        }
+    }
+
+    public function getResult() {
+        return "{$this->success} / " . count($this->tests);
+    }
+}
+```
+
+3. Создаю файл `tests.php` со следующим содержимым:
+```php
+<?php
+
+require_once __DIR__ . '/testframework.php';
+
+require_once __DIR__ . '/../config.php';
+require_once __DIR__ . '/../modules/database.php';
+require_once __DIR__ . '/../modules/page.php';
+
+$testFramework = new TestFramework();
+
+// test 1: check database connection
+function testDbConnection() {
+    global $config;
+    // ...
+}
+
+// test 2: test count method
+function testDbCount() {
+    global $config;
+    // ...
+}
+
+// test 3: test create method
+function testDbCreate() {
+    global $config;
+    // ...
+}
+
+// test 4: test read method
+function testDbRead() {
+    global $config;
+    // ...
+}
+
+// add tests
+$tests->add('Database connection', 'testDbConnection');
+$tests->add('table count', 'testDbCount');
+$tests->add('data create', 'testDbCreate');
+// ...
+
+// run tests
+$tests->run();
+
+echo $tests->getResult();
+```
