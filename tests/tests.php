@@ -84,7 +84,7 @@ function testDbFetch()
 // test 7: test render method
 function testPageRender()
 {
-    $tplPath = __DIR__ . '/../site/templates/index.tpl';
+    $tplPath = '/var/www/html/templates/index.tpl';
     file_put_contents($tplPath, "<h1>{{title}}</h1><p>{{content}}</p>");
 
     $page = new Page($tplPath);
